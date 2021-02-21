@@ -9,7 +9,7 @@ float densityModel(float* temp, float* pressure) {
 
     -- Actions None
 
-    --  Outputs float
+    --  Outputs Air Density (kg/m3) Float
     */
     return 0.02897 * ((*pressure *1) / (8.31446261815324 * (273 + *temp)));
 }
