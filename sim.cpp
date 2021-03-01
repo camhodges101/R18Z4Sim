@@ -1,5 +1,18 @@
 #include <iostream>
 #include <cmath>
+/*
+This is an idealised simulator of the 4 cyl ICE engine
+
+Each major component (Throttle, crank, pistons) are created as a class
+
+Each component class has a constructor that sets its initial condition
+
+Each component also has a update method, this updates the components state
+
+All states are driven by the crankshaft position, the crankshaft is updated by 1 deg each timestep
+
+The engine is also created as a class, it has a method run which updates all subcomponents using their update method. 
+*/
 
 float pi = 3.1415926535;
 
@@ -169,7 +182,7 @@ public:
                 }
                 else if (cyclestate == 2) {
                     if (heatLoss == 1) {
-                        Temp == 300;
+                        Temp = 300;
                         heatLoss = 0;
                     }
                     volume = pi * (pow((0.5 * bore), 2)) * (topPosition - position) + headvolume;
@@ -228,10 +241,8 @@ public:
         --Outputs None
         */
         speed = *enginespeed;
-        position = position + (2 * pi / 360);
-        if (position > 4 * pi) {
-            position = position - 4 * pi;
-        }
+        position = fmod((position + (2 * pi / 360)),(4*pi));
+
     }
 };
 
