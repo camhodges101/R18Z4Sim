@@ -2,7 +2,7 @@
 //
 
 #include "R18Z4Sim.h"
-
+#include <chrono>
 #include <iostream>
 #include <cmath>
 /*
@@ -18,6 +18,23 @@ All states are driven by the crankshaft position, the crankshaft is updated by 1
 
 The engine is also created as a class, it has a method run which updates all subcomponents using their update method.
 */
+
+struct Timer {
+    std::chrono::time_point<std::chrono::steady_clock> start, end;
+    std::chrono::duration<float>duration;
+    Timer() {
+        start = std::chrono::high_resolution_clock::now();
+
+    }
+
+    ~Timer(){
+        end = std::chrono::high_resolution_clock::now();
+        duration = end - start;
+
+        float ms = duration.count() * 1000.0f;
+        std::cout << "Timer took: " << ms << "ms" << std::endl;
+    }
+};
 
 float pi = 3.1415926535;
                
@@ -261,7 +278,7 @@ public:
     crank* crankshaft = new crank();
     throttle* Throttle = new throttle();
     float engineSpeed = 2000 * 2 * pi / 60;
-    float* throttleObj;
+    
     int i;
     int numCyl;
 private:
@@ -281,15 +298,16 @@ public:
         }
     }
     void run() {
-        for (k = 0; k < 720 * 8; k++) {
-
+        
+        for (k = 0; k < (720 * 100); k++) {
+            
             crankshaft->update(&engineSpeed);
             for (i = 0; i < numCyl; i++) {
                 cylList[i]->intakePressure = Throttle->MAP;
                 cylList[i]->update(&(crankshaft->position));
             }
             Throttle->update(&engineSpeed);
-            std::cout << (cylList[0]->position) <<","<< (cylList[0]->volume)<<"," << (cylList[0]->pressure) << std::endl;
+            //std::cout << (cylList[0]->position) <<","<< (cylList[0]->volume)<<"," << (cylList[0]->Temp) << std::endl;
             
 
             //Need a sleep step here. 
@@ -300,8 +318,16 @@ public:
 
 };
 int main() {
-    std::cout << "starting" << std::endl;
+
     engine R18Z4(4);
+    std::chrono::time_point<std::chrono::steady_clock> start, end;
+    std::chrono::duration<float>duration;
+    start = std::chrono::high_resolution_clock::now();
     R18Z4.run();
+    end = std::chrono::high_resolution_clock::now();
+    duration = end - start;
+
+    float ms = duration.count() * 1000.0f;
+    std::cout << "Timer took: " << ms << "ms" << std::endl;
 
 }
