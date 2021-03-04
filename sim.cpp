@@ -24,7 +24,7 @@ float densityModel(float* temp, float* pressure) {
 
     --  Outputs Air Density (kg/m3) Float
     */
-    return 0.02897 * ((*pressure *1) / (8.31446261815324 * (273 + *temp)));
+    return 0.02897 * ((*pressure *1.0) / (8.31446261815324 * (273.0 + *temp)));
 }
 
 class throttle {
@@ -93,6 +93,7 @@ int cycleState(float theta) {
     2 = Ignition
     3 = Exhaust
     */
+    
     int cycleid = 0;
     
     if (theta < 0) {
