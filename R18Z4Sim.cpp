@@ -6,6 +6,13 @@
 #include <iostream>
 #include <cmath>
 /*
+Stuff to add
+Speed control, sleep after crank update
+External throttle control
+Dynamic speed control (based on throttle position via transfer function (some lag))
+*/
+
+/*
 This is an idealised simulator of the 4 cyl ICE engine
 
 Each major component (Throttle, crank, pistons) are created as a class
@@ -19,24 +26,9 @@ All states are driven by the crankshaft position, the crankshaft is updated by 1
 The engine is also created as a class, it has a method run which updates all subcomponents using their update method.
 */
 
-struct Timer {
-    std::chrono::time_point<std::chrono::steady_clock> start, end;
-    std::chrono::duration<float>duration;
-    Timer() {
-        start = std::chrono::high_resolution_clock::now();
 
-    }
 
-    ~Timer(){
-        end = std::chrono::high_resolution_clock::now();
-        duration = end - start;
-
-        float ms = duration.count() * 1000.0f;
-        std::cout << "Timer took: " << ms << "ms" << std::endl;
-    }
-};
-
-float pi = 3.1415926535;
+const float pi = 3.1415926535;
                
 float densityModel(float* temp, float* pressure) {
     /* Ideal Gas law to determine air density as function of pressure and temperature
@@ -48,6 +40,12 @@ float densityModel(float* temp, float* pressure) {
     */
     return 0.02897 * ((*pressure * 1.0) / (8.31446261815324 * (273.0 + *temp)));
 }
+
+class speedController {
+    float speedError = 0;
+    float engineSpeed = 0
+};
+
 
 class throttle {
     /*
@@ -78,6 +76,9 @@ public:
         flowarea = (pi * pow((dia * 0.5), 2)) - (dia * 0.5 * (0.5 * dia * cos(throttleAngle * 2 * pi / 360) * pi));
         MAP = 101e3;
         MAF = 0;
+        TotalAirDemand = 0;
+
+
     }
 
 
@@ -143,6 +144,9 @@ int cycleState(float theta) {
 
 
 class piston
+/*
+This class defines a single piston, this is replicated in the engine class for each piston, the constructor takes the pistons offset from TDC of piston 1. The constructor sets the intake pressure to 1ATM which is then updated to manifold pressure by the throttle class. 
+*/
 {
 public:
     float pressure;
@@ -162,7 +166,7 @@ public:
     float heatLoss;
     float Temp;
     int firstCycle = 0;
-    float R = 8.31446261815324;
+    const float R = 8.31446261815324;
     float n;
 
     piston(float TDC_Angle) {
@@ -185,7 +189,7 @@ public:
         This is an idealised otto thermodyanmic cycle, constant head addition at combustion with idiabatic compression.
 
         */
-        //I should initalise all pistons at whatever there starting location is and calculate n P V and T, this will remove the need for the first cycle conditional statement, make it all more elegant. 
+        
 
 
         if (cyclestate == 0) {
@@ -240,6 +244,8 @@ public:
         y2 = sqrt(pow(rodlength, 2) - pow(x1, 2)) + y1;
         position = y2;
         cyclestate = cycleState(*crankAngle);
+        if ((cyclestate == 1) && (topPosition - position) < 0.005) {ignition = 1;}
+        if (cyclestate == 2 && (position - bottomPosition < 0.001)) {heatLoss = 1;}
         ottoModel();
 
 
@@ -255,7 +261,7 @@ public:
     float speed;
     float position;
     float timestep;
-    void update(float* enginespeed) {
+    void update(float* enginespeed) { 
         /*
         This method updates the crank position in one time step
         At the moment the model is based on incrementing the crank position by 1 deg each time step
@@ -291,15 +297,14 @@ public:
     engine(int numcyl) {
 
         numCyl = numcyl;
-        
-        
+                
         for (i = 0; i < numcyl; i++) {
             cylList[i] = new piston(offsetAngles[i]);
         }
     }
     void run() {
         
-        for (k = 0; k < (720 * 100); k++) {
+        for (k = 0; k < (720 * 10); k++) {
             
             crankshaft->update(&engineSpeed);
             for (i = 0; i < numCyl; i++) {
@@ -307,7 +312,7 @@ public:
                 cylList[i]->update(&(crankshaft->position));
             }
             Throttle->update(&engineSpeed);
-            //std::cout << (cylList[0]->position) <<","<< (cylList[0]->volume)<<"," << (cylList[0]->Temp) << std::endl;
+            //std::cout << (cylList[0]->position) <<","<< (cylList[0]->volume)<<"," << (cylList[0]->pressure) << std::endl;
             
 
             //Need a sleep step here. 
