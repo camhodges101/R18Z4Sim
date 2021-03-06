@@ -5,6 +5,10 @@
 #include <chrono>
 #include <iostream>
 #include <cmath>
+#include <thread>
+
+using namespace std::this_thread; // sleep_for, sleep_until
+using namespace std::chrono;
 /*
 Stuff to add
 Speed control, sleep after crank update
@@ -321,7 +325,7 @@ public:
     }
     void run() {
         Timer o_timer;
-        for (k = 0; k < (720 * 1); k++) {
+        for (k = 0; k < (720 * 1000); k++) {
             o_timer.startpoint();
             crankshaft->update(&engineSpeed);
             for (i = 0; i < numCyl; i++) {
@@ -330,8 +334,9 @@ public:
             }
             Throttle->update(&engineSpeed);
             updateDuration = o_timer.endpoint();
-            requirdPeriod = (1/(360*(engineSpeed*60/(2*pi))/60))-updateDuration;
-            
+            requirdPeriod = ((1/(6*(engineSpeed*60/(2*pi))/60))*1000000)-updateDuration;
+            //std::cout<<requirdPeriod<<std::endl;
+            sleep_for(nanoseconds((int)requirdPeriod));
             //std::cout << (cylList[0]->position) <<","<< (cylList[0]->volume)<<"," << (cylList[0]->pressure) << std::endl;
             
 
@@ -345,9 +350,9 @@ public:
 int main() {
     float duration;
     engine R18Z4(4);
-    Timer o_timer;
+    Timer s_timer;
     R18Z4.run();
-    duration = o_timer.endpoint();
-    std::cout << duration << std::endl;
+    duration = s_timer.endpoint();
+    std::cout << duration/(1000000) << std::endl;
 
 }
