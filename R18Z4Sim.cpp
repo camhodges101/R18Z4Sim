@@ -26,7 +26,21 @@ All states are driven by the crankshaft position, the crankshaft is updated by 1
 The engine is also created as a class, it has a method run which updates all subcomponents using their update method.
 */
 
+struct Timer{
+    public:
+            std::chrono::time_point<std::chrono::system_clock> start, end;
+            std::chrono::duration<float>duration;
+        Timer(){
+            start = std::chrono::high_resolution_clock::now();
+            }
 
+        float endpoint(){
+            end = std::chrono::high_resolution_clock::now();
+            duration = end - start;
+            float ns = duration.count() * 1000000.0f;
+            return ns;
+        }
+};
 
 const float pi = 3.1415926535;
                
@@ -304,7 +318,7 @@ public:
     }
     void run() {
         
-        for (k = 0; k < (720 * 10); k++) {
+        for (k = 0; k < (720 * 1); k++) {
             
             crankshaft->update(&engineSpeed);
             for (i = 0; i < numCyl; i++) {
@@ -323,16 +337,11 @@ public:
 
 };
 int main() {
-
+    float duration;
     engine R18Z4(4);
-    std::chrono::time_point<std::chrono::steady_clock> start, end;
-    std::chrono::duration<float>duration;
-    start = std::chrono::high_resolution_clock::now();
+    Timer o_timer;
     R18Z4.run();
-    end = std::chrono::high_resolution_clock::now();
-    duration = end - start;
-
-    float ms = duration.count() * 1000.0f;
-    std::cout << "Timer took: " << ms << "ms" << std::endl;
+    duration = o_timer.endpoint();
+    std::cout << duration << std::endl;
 
 }
