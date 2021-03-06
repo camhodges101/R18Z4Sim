@@ -333,9 +333,10 @@ public:
                 cylList[i]->update(&(crankshaft->position));
             }
             Throttle->update(&engineSpeed);
+            //Calculated the required sleep after each step to match real time target engine speed
             updateDuration = o_timer.endpoint();
             requirdPeriod = ((1/(6*(engineSpeed*60/(2*pi))/60))*1000000)-updateDuration;
-            //std::cout<<requirdPeriod<<std::endl;
+            
             sleep_for(nanoseconds((int)requirdPeriod));
             //std::cout << (cylList[0]->position) <<","<< (cylList[0]->volume)<<"," << (cylList[0]->pressure) << std::endl;
             
