@@ -33,7 +33,9 @@ struct Timer{
         Timer(){
             start = std::chrono::high_resolution_clock::now();
             }
-
+        void startpoint(){
+            start = std::chrono::high_resolution_clock::now();
+        }
         float endpoint(){
             end = std::chrono::high_resolution_clock::now();
             duration = end - start;
@@ -305,7 +307,8 @@ private:
     float offsetAngles[4] = { 0.0f, 2.0f * pi, pi, 3.0f * pi };
     piston* cylList[4];
     int k = 0;
-
+    float updateDuration = 0;
+    float requirdPeriod = 0;
 
 public:
     engine(int numcyl) {
@@ -317,15 +320,18 @@ public:
         }
     }
     void run() {
-        
+        Timer o_timer;
         for (k = 0; k < (720 * 1); k++) {
-            
+            o_timer.startpoint();
             crankshaft->update(&engineSpeed);
             for (i = 0; i < numCyl; i++) {
                 cylList[i]->intakePressure = Throttle->MAP;
                 cylList[i]->update(&(crankshaft->position));
             }
             Throttle->update(&engineSpeed);
+            updateDuration = o_timer.endpoint();
+            requirdPeriod = (1/(360*(engineSpeed*60/(2*pi))/60))-updateDuration;
+            
             //std::cout << (cylList[0]->position) <<","<< (cylList[0]->volume)<<"," << (cylList[0]->pressure) << std::endl;
             
 
