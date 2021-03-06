@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/cameron/Documents/cppTutorials/R18Z4Sim/R18Z4Sim.cpp
+R18Z4Sim.h
+/home/cameron/Documents/cppTutorials/R18Z4Sim/R18Z4Sim.h
+chrono
+-
+iostream
+-
+cmath
+-
+
+/home/cameron/Documents/cppTutorials/R18Z4Sim/R18Z4Sim.h
+iostream
+-
+

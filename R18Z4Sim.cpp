@@ -43,7 +43,7 @@ float densityModel(float* temp, float* pressure) {
 
 class speedController {
     float speedError = 0;
-    float engineSpeed = 0
+    float engineSpeed = 0;
 };
 
 
