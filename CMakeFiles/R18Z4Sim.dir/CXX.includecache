@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/pi/cppTutorials/R18Z4Sim/R18Z4Sim.cpp
+/home/cameron/Documents/cppTutorials/R18Z4Sim/R18Z4Sim.cpp
 R18Z4Sim.h
-/home/pi/cppTutorials/R18Z4Sim/R18Z4Sim.h
+/home/cameron/Documents/cppTutorials/R18Z4Sim/R18Z4Sim.h
 chrono
 -
 iostream
@@ -18,7 +18,7 @@ cmath
 thread
 -
 
-/home/pi/cppTutorials/R18Z4Sim/R18Z4Sim.h
+/home/cameron/Documents/cppTutorials/R18Z4Sim/R18Z4Sim.h
 iostream
 -
 

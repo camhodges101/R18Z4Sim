@@ -1,3 +1,3 @@
-/home/pi/cppTutorials/R18Z4Sim/CMakeFiles/rebuild_cache.dir
-/home/pi/cppTutorials/R18Z4Sim/CMakeFiles/R18Z4Sim.dir
-/home/pi/cppTutorials/R18Z4Sim/CMakeFiles/edit_cache.dir
+/home/cameron/Documents/cppTutorials/R18Z4Sim/CMakeFiles/rebuild_cache.dir
+/home/cameron/Documents/cppTutorials/R18Z4Sim/CMakeFiles/edit_cache.dir
+/home/cameron/Documents/cppTutorials/R18Z4Sim/CMakeFiles/R18Z4Sim.dir

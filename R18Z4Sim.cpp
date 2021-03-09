@@ -303,7 +303,7 @@ class engine {
 public:
     crank* crankshaft = new crank();
     throttle* Throttle = new throttle();
-    float engineSpeed = 2000 * 2 * pi / 60;
+    float engineSpeed = 6000 * 2 * pi / 60;
     
     int i;
     int numCyl;
@@ -337,7 +337,7 @@ public:
             updateDuration = o_timer.endpoint();
             requirdPeriod = ((1/(6*(engineSpeed*60/(2*pi))/60))*1000000)-updateDuration;
             
-            sleep_for(nanoseconds((int)requirdPeriod));
+            sleep_for(nanoseconds((int64_t)requirdPeriod));
             //std::cout << (cylList[0]->position) <<","<< (cylList[0]->volume)<<"," << (cylList[0]->pressure) << std::endl;
             
 
