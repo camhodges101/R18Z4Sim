@@ -150,6 +150,33 @@ R18Z4Sim.cpp.s:
 	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/R18Z4Sim.cpp.s
 .PHONY : R18Z4Sim.cpp.s
 
+components.o: components.cpp.o
+
+.PHONY : components.o
+
+# target to build an object file
+components.cpp.o:
+	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/components.cpp.o
+.PHONY : components.cpp.o
+
+components.i: components.cpp.i
+
+.PHONY : components.i
+
+# target to preprocess a source file
+components.cpp.i:
+	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/components.cpp.i
+.PHONY : components.cpp.i
+
+components.s: components.cpp.s
+
+.PHONY : components.s
+
+# target to generate assembly for a file
+components.cpp.s:
+	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/components.cpp.s
+.PHONY : components.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +189,9 @@ help:
 	@echo "... R18Z4Sim.o"
 	@echo "... R18Z4Sim.i"
 	@echo "... R18Z4Sim.s"
+	@echo "... components.o"
+	@echo "... components.i"
+	@echo "... components.s"
 .PHONY : help
 
 

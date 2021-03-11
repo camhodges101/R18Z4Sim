@@ -74,12 +74,12 @@ clean: CMakeFiles/R18Z4Sim.dir/clean
 CMakeFiles/R18Z4Sim.dir/all:
 	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/depend
 	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cameron/Documents/cppTutorials/R18Z4Sim/CMakeFiles --progress-num=1,2 "Built target R18Z4Sim"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cameron/Documents/cppTutorials/R18Z4Sim/CMakeFiles --progress-num=1,2,3 "Built target R18Z4Sim"
 .PHONY : CMakeFiles/R18Z4Sim.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/R18Z4Sim.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cameron/Documents/cppTutorials/R18Z4Sim/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cameron/Documents/cppTutorials/R18Z4Sim/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/R18Z4Sim.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/cameron/Documents/cppTutorials/R18Z4Sim/CMakeFiles 0
 .PHONY : CMakeFiles/R18Z4Sim.dir/rule
