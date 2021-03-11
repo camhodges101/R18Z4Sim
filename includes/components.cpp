@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <thread>
-#include "includes/components.h"
+#include "components.h"
 float densityModel(float* temp, float* pressure) {
     /* Ideal Gas law to determine air density as function of pressure and temperature
     --Inputs Float pointers to temp and pressure values
@@ -36,4 +36,39 @@ void crank::update(float* enginespeed) {
     speed = *enginespeed;
     position = fmod((position + (2 * pi / 360)), (4 * pi));
 
+}
+
+
+
+int cycleState(float theta) {
+    /*
+    Function to convert crank angle (theta) to 4-stroke cycle stage
+    0 = Intake
+    1 = Compression
+    2 = Ignition
+    3 = Exhaust
+    */
+
+    int cycleid = 0;
+
+    if (theta < 0) {
+        theta = 4 * pi + theta;
+    }
+
+    if (theta >= 0 && theta < pi) {
+        cycleid = 0;
+    }
+
+    else if (theta >= pi && theta < 2 * pi) {
+        cycleid = 1;
+    }
+
+    else if (theta >= 2 * pi && theta < 3 * pi) {
+        cycleid = 2;
+    }
+
+    else if (theta >= 3 * pi && theta < 4 * pi) {
+        cycleid = 3;
+    }
+    return cycleid;
 }

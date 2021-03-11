@@ -4,6 +4,6 @@
 CMakeFiles/R18Z4Sim.dir/R18Z4Sim.cpp.o: R18Z4Sim.cpp
 CMakeFiles/R18Z4Sim.dir/R18Z4Sim.cpp.o: includes/components.h
 
-CMakeFiles/R18Z4Sim.dir/components.cpp.o: components.cpp
-CMakeFiles/R18Z4Sim.dir/components.cpp.o: includes/components.h
+CMakeFiles/R18Z4Sim.dir/includes/components.cpp.o: includes/components.cpp
+CMakeFiles/R18Z4Sim.dir/includes/components.cpp.o: includes/components.h
 

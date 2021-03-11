@@ -150,32 +150,32 @@ R18Z4Sim.cpp.s:
 	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/R18Z4Sim.cpp.s
 .PHONY : R18Z4Sim.cpp.s
 
-components.o: components.cpp.o
+includes/components.o: includes/components.cpp.o
 
-.PHONY : components.o
+.PHONY : includes/components.o
 
 # target to build an object file
-components.cpp.o:
-	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/components.cpp.o
-.PHONY : components.cpp.o
+includes/components.cpp.o:
+	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/includes/components.cpp.o
+.PHONY : includes/components.cpp.o
 
-components.i: components.cpp.i
+includes/components.i: includes/components.cpp.i
 
-.PHONY : components.i
+.PHONY : includes/components.i
 
 # target to preprocess a source file
-components.cpp.i:
-	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/components.cpp.i
-.PHONY : components.cpp.i
+includes/components.cpp.i:
+	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/includes/components.cpp.i
+.PHONY : includes/components.cpp.i
 
-components.s: components.cpp.s
+includes/components.s: includes/components.cpp.s
 
-.PHONY : components.s
+.PHONY : includes/components.s
 
 # target to generate assembly for a file
-components.cpp.s:
-	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/components.cpp.s
-.PHONY : components.cpp.s
+includes/components.cpp.s:
+	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/includes/components.cpp.s
+.PHONY : includes/components.cpp.s
 
 # Help Target
 help:
@@ -189,9 +189,9 @@ help:
 	@echo "... R18Z4Sim.o"
 	@echo "... R18Z4Sim.i"
 	@echo "... R18Z4Sim.s"
-	@echo "... components.o"
-	@echo "... components.i"
-	@echo "... components.s"
+	@echo "... includes/components.o"
+	@echo "... includes/components.i"
+	@echo "... includes/components.s"
 .PHONY : help
 
 

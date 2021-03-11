@@ -2,6 +2,8 @@
 #define components
 
 
+int cycleState(float);
+
 float densityModel(float*, float*);
 
 

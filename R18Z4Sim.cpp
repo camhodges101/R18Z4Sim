@@ -92,8 +92,6 @@ public:
 
     }
 
-
-
     void update(float* EngineSpeed) {
         /*
         This method takes the current engine speed and calculates a total air demand for the 4 cylinders
@@ -120,38 +118,7 @@ public:
 
 
 
-int cycleState(float theta) {
-    /*
-    Function to convert crank angle (theta) to 4-stroke cycle stage
-    0 = Intake
-    1 = Compression
-    2 = Ignition
-    3 = Exhaust
-    */
 
-    int cycleid = 0;
-
-    if (theta < 0) {
-        theta = 4 * pi + theta;
-    }
-
-    if (theta >= 0 && theta < pi) {
-        cycleid = 0;
-    }
-
-    else if (theta >= pi && theta < 2 * pi) {
-        cycleid = 1;
-    }
-
-    else if (theta >= 2 * pi && theta < 3 * pi) {
-        cycleid = 2;
-    }
-
-    else if (theta >= 3 * pi && theta < 4 * pi) {
-        cycleid = 3;
-    }
-    return cycleid;
-}
 
 
 class piston

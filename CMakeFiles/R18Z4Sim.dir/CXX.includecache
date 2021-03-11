@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/cameron/Documents/cppTutorials/R18Z4Sim/R18Z4Sim.cpp
+/home/cameron/Documents/cppTutorials/R18Z4Sim/includes/components.cpp
 chrono
 -
 iostream
@@ -15,19 +15,7 @@ cmath
 -
 thread
 -
-includes/components.h
-/home/cameron/Documents/cppTutorials/R18Z4Sim/includes/components.h
-
-/home/cameron/Documents/cppTutorials/R18Z4Sim/components.cpp
-chrono
--
-iostream
--
-cmath
--
-thread
--
-includes/components.h
+components.h
 /home/cameron/Documents/cppTutorials/R18Z4Sim/includes/components.h
 
 /home/cameron/Documents/cppTutorials/R18Z4Sim/includes/components.h
