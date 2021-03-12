@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include <thread>
+
 #include "includes/components.h"
 using namespace std::this_thread; // sleep_for, sleep_until
 using namespace std::chrono;
@@ -284,10 +285,13 @@ public:
 };
 int main() {
     float duration;
-    engine R18Z4(4);
+    //engine* R18Z4 = engine(4);
     Timer s_timer;
-    R18Z4.run();
+    engine R18Z4(4);
+    std::thread thread_object(&engine::run, R18Z4);
+    thread_object.join();
     duration = s_timer.endpoint();
     std::cout << duration/(1000000) << std::endl;
+
 
 }
