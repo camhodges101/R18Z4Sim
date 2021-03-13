@@ -237,7 +237,7 @@ class engine {
 public:
     crank* crankshaft = new crank();
     throttle* Throttle = new throttle();
-    float engineSpeed = 2000 * 2 * pi / 60;
+    float engineSpeed = (2000 * 2 * pi) / 60;
     
     int i;
     int numCyl;
@@ -259,7 +259,7 @@ public:
     }
     void run() {
         Timer o_timer;
-        for (k = 0; k < (720 * 100); k++) {
+        for (k = 0; k < (720 * 1000); k++) {
             o_timer.startpoint();
             crankshaft->update(&engineSpeed);
             for (i = 0; i < numCyl; i++) {
