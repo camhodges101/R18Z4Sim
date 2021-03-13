@@ -129,15 +129,15 @@ This class defines a single piston, this is replicated in the engine class for e
 {
 public:
     float pressure;
-    float stroke;
-    float bore;
-    float rodlength;
-    float headvolume;
+    const float stroke = 87.3e-3f;
+    const float bore = 81e-3f;
+    const float rodlength = 157.5e-3f;
+    const float headvolume = 0.0000468f;
     float position;
     float angleOffset;
     int cyclestate;
-    float topPosition;
-    float bottomPosition;
+    const float topPosition = (0.5f * stroke) + rodlength;
+    const float bottomPosition = (0.5f * stroke) - rodlength;
     float ATMpress;
     float intakePressure;
     float volume;
@@ -150,17 +150,11 @@ public:
 
     piston(float TDC_Angle) {
         pressure = 101e3f;
-        stroke = 87.3e-3f;
-        bore = 81e-3f;
-        rodlength = 157.5e-3f;
-        headvolume = 0.0000468f;
         position = 0.0f;
         angleOffset = TDC_Angle;
         cyclestate = 0;
-        topPosition = (0.5f * stroke) + rodlength;
-        bottomPosition = (0.5f * stroke) - rodlength;
         ATMpress = 101e+3f;
-        ottoModel();
+        ottoModel();//Update all teh cylinders to their correct thermodynamic states at the postion they are initialised. 
     }
 
     void ottoModel() {
@@ -170,7 +164,7 @@ public:
         */
         
 
-
+        //Intake stroke
         if (cyclestate == 0) {
             pressure = intakePressure;
             Temp = 300.0f;
@@ -179,7 +173,9 @@ public:
 
 
         }
+        //Compression stroke
         else if (cyclestate == 1) {
+            //ignition point
             if (ignition == 1) {
                 Temp = 1100.0f;
                 ignition = 0;
@@ -188,8 +184,9 @@ public:
             pressure = (n * R * Temp) / (volume);
                     
             }
-        
+        //Power Stroke
         else if (cyclestate == 2) {
+            //healoss
             if (heatLoss == 1) {
                 Temp = 300.0f;
                 heatLoss = 0;
@@ -197,6 +194,7 @@ public:
             volume = pi * (pow((0.5f * bore), 2)) * (topPosition - position) + headvolume;
             pressure = (n * R * Temp) / (volume);
         }
+        //exhaust stroke
         else if (cyclestate == 3) {
             Temp = 300.0f;
             volume = pi * (pow((0.5f * bore), 2)) * (topPosition - position) + headvolume;
@@ -209,7 +207,7 @@ public:
 
     void update(float* crankAngle) {
         /*
-        This method takes a pointer crankAngle and then updates the pistons position based on this, this also includes the offset of each piston.
+        This method takes a pointer crankAngle and then updates the pistons position based on this, this also includes the offset of each piston. Includes calling the otto cycle function to update cylinder pressure, temperatures and volumes
         --Inputs
 
         --Actions
@@ -223,6 +221,7 @@ public:
         y2 = sqrt(pow(rodlength, 2) - pow(x1, 2)) + y1;
         position = y2;
         cyclestate = cycleState(*crankAngle);
+        // Switch the ignition flag to signal the heat addition in the otto cycle, heatloss flag drops the temperature at the end of the power stroke.
         if ((cyclestate == 1) && (topPosition - position) < 0.005) {ignition = 1;}
         if (cyclestate == 2 && (position - bottomPosition < 0.001)) {heatLoss = 1;}
         ottoModel();
