@@ -15,6 +15,9 @@ Stuff to add
 Speed control, sleep after crank update
 External throttle control
 Dynamic speed control (based on throttle position via transfer function (some lag))
+TCP connection to GUI
+hardware interface functions
+sensor voltage transfer functions. 
 */
 
 /*
@@ -51,6 +54,7 @@ struct Timer{
 
 const float pi = 3.1415926535;
                
+
 
 
 class speedController {
@@ -233,6 +237,7 @@ public:
 
 
 
+
 class engine {
 public:
     crank* crankshaft = new crank();
@@ -259,7 +264,7 @@ public:
     }
     void run() {
         Timer o_timer;
-        for (k = 0; k < (720 * 1000); k++) {
+        for (k = 0; k < (720 * 10); k++) {
             o_timer.startpoint();
             crankshaft->update(&engineSpeed);
             for (i = 0; i < numCyl; i++) {
@@ -282,12 +287,23 @@ public:
 
 
 };
+
+void displayParameters(engine* target){
+    while(1){
+
+        std::cout << target->Throttle->MAP << ","<<target->crankshaft->position << std::endl;
+        sleep_for(seconds(1));
+    }
+};
+
+
 int main() {
     float duration;
     //engine* R18Z4 = engine(4);
     Timer s_timer;
     engine R18Z4(4);
     std::thread thread_object(&engine::run, R18Z4);
+    displayParameters(&R18Z4);
     thread_object.join();
     duration = s_timer.endpoint();
     std::cout << duration/(1000000) << std::endl;
