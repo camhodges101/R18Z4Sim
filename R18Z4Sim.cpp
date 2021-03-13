@@ -44,8 +44,8 @@ struct Timer{
         float endpoint(){
             end = std::chrono::high_resolution_clock::now();
             duration = end - start;
-            float ns = duration.count() * 1000000.0f;
-            return ns;
+            float us = duration.count() * 1000000.0f;
+            return us;
         }
 };
 
@@ -238,7 +238,7 @@ class engine {
 public:
     crank* crankshaft = new crank();
     throttle* Throttle = new throttle();
-    float engineSpeed = 6000 * 2 * pi / 60;
+    float engineSpeed = 2000 * 2 * pi / 60;
     
     int i;
     int numCyl;
@@ -260,7 +260,7 @@ public:
     }
     void run() {
         Timer o_timer;
-        for (k = 0; k < (720 * 1000); k++) {
+        for (k = 0; k < (720 * 100); k++) {
             o_timer.startpoint();
             crankshaft->update(&engineSpeed);
             for (i = 0; i < numCyl; i++) {
@@ -270,11 +270,11 @@ public:
             Throttle->update(&engineSpeed);
             //Calculated the required sleep after each step to match real time target engine speed
             updateDuration = o_timer.endpoint();
-            requirdPeriod = ((1/(6*(engineSpeed*60/(2*pi))/60))*1000000)-updateDuration;
-            
-            sleep_for(nanoseconds((int64_t)requirdPeriod));
+            requirdPeriod = ((1/(360*(engineSpeed*60/(2*pi))/60))*1000000)-updateDuration;
+
+            sleep_for(microseconds((int)requirdPeriod));
             //std::cout << (cylList[0]->position) <<","<< (cylList[0]->volume)<<"," << (cylList[0]->pressure) << std::endl;
-            
+            //std::cout << k << std::endl;
 
             //Need a sleep step here. 
         }
