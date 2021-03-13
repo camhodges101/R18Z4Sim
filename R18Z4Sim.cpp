@@ -96,7 +96,7 @@ class speedController{
 
         float getEngineSpeed(int time){
             
-            targetSpeed =(900.0 + (7000*throttlePercentage[time])); 
+            targetSpeed =(900.0 + (5000*throttlePercentage[time])); 
             
             return targetSpeed;
         }
@@ -163,6 +163,7 @@ public:
         --Outputs None
         */
         TotalAirDemand = 4 * 0.00045 * VE * (*EngineSpeed / (2 * pi)) * 0.5;
+        flowarea = (pi * pow((dia * 0.5), 2)) - (dia * 0.5 * (0.5 * dia * cos(throttleAngle * 2 * pi / 360) * pi));
         velocity = TotalAirDemand / flowarea;
         MAP = std::max((ATMPress + 0.5 * ATMrho * (0 - pow(velocity, 2))), 0.0);
         MAF = ATMrho * flowarea * velocity;
@@ -330,8 +331,9 @@ public:
             //This updates the sims internal values for engine speed and throttle position based on a predetermined time based sequence stores in a csv. 
             timestep = (int)((g_timer.endpoint())/1000000)+1;
             *engineSpeed = ((SpeedReg->getEngineSpeed(timestep))*2*pi/60);
-            //std::cout<<engineSpeed<<std::endl;
             Throttle->throttleAngle = 40+50*(SpeedReg->getThrottlePos(timestep));
+            
+            
             //Calculated the required sleep after each step to match real time target engine speed
             updateDuration = o_timer.endpoint();
             requirdPeriod = ((1/(360*(*engineSpeed*60/(2*pi))/60))*1000000)-updateDuration;
@@ -357,7 +359,7 @@ void displayParameters(engine* target){
     
     while(1){
 
-        std::cout <<target->Throttle->throttleAngle<<"," <<target->Throttle->MAP << ","<<target->getSpeed() << std::endl;
+        std::cout <<target->Throttle->throttleAngle<<"," <<target->Throttle->MAP << ","<<*(target->engineSpeed)*60/2/pi << std::endl;
         sleep_for(seconds(1));
     }
 };
