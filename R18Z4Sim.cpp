@@ -6,7 +6,9 @@
 #include <iostream>
 #include <cmath>
 #include <thread>
-
+#include <vector>
+#include <fstream>
+#include <string>
 #include "includes/components.h"
 using namespace std::this_thread; // sleep_for, sleep_until
 using namespace std::chrono;
@@ -57,9 +59,47 @@ const float pi = 3.1415926535;
 
 
 
-class speedController {
-    float speedError = 0;
-    float engineSpeed = 0;
+class speedController{
+	public:
+		int trackLength = 0;
+        float targetSpeed;
+		std::ifstream myFile;
+		
+		std::string line;
+		std::vector<float>time;
+		std::vector<float>throttlePercentage;
+		
+		speedController(){
+			myFile.open("data/throttleProfile.csv");
+			if (myFile.is_open()){
+				getline(myFile,line,'\n');
+				
+				while(!myFile.eof()){
+					std::string t,thr_per;
+					getline(myFile, t,',');
+					getline(myFile, thr_per,'\n');
+					if (t.length()){
+						
+						time.push_back(stof(t));
+						throttlePercentage.push_back(stof(thr_per)); 
+						trackLength++;
+                 
+					}
+				}
+			}
+
+		}
+
+        float getThrottlePos(int time){
+            return throttlePercentage[time];
+        }
+
+        float getEngineSpeed(int time){
+            
+            targetSpeed =(900.0 + (7000*throttlePercentage[time])); 
+            
+            return targetSpeed;
+        }
 };
 
 class camshaft{
@@ -249,7 +289,8 @@ public:
     crank* crankshaft = new crank();
     throttle* Throttle = new throttle();
     camshaft* Camshaft = new camshaft;
-    float engineSpeed = (2000 * 2 * pi) / 60;
+    speedController* SpeedReg = new speedController;
+    float* engineSpeed = new float;
     
     int i;
     int numCyl;
@@ -259,47 +300,64 @@ private:
     int k = 0;
     float updateDuration = 0;
     float requirdPeriod = 0;
+    int timestep=0;
 
 public:
     engine(int numcyl) {
 
         numCyl = numcyl;
-                
+        *engineSpeed = 0;
         for (i = 0; i < numcyl; i++) {
             cylList[i] = new piston(offsetAngles[i]);
         }
     }
+    ~engine(){
+        delete engineSpeed;
+    }
     void run() {
         Timer o_timer;
-        for (k = 0; k < (720 * 10); k++) {
+        Timer g_timer;
+        for (k = 0; k < (720 * 1000); k++) {
             o_timer.startpoint();
-            crankshaft->update(&engineSpeed);
+            crankshaft->update(engineSpeed);
             Camshaft->update(&(crankshaft->position));
             for (i = 0; i < numCyl; i++) {
                 cylList[i]->intakePressure = Throttle->MAP;
                 cylList[i]->update(&(crankshaft->position));
             }
-            Throttle->update(&engineSpeed);
+            Throttle->update(engineSpeed);
+            
+            //This updates the sims internal values for engine speed and throttle position based on a predetermined time based sequence stores in a csv. 
+            timestep = (int)((g_timer.endpoint())/1000000)+1;
+            *engineSpeed = ((SpeedReg->getEngineSpeed(timestep))*2*pi/60);
+            //std::cout<<engineSpeed<<std::endl;
+            Throttle->throttleAngle = 40+50*(SpeedReg->getThrottlePos(timestep));
             //Calculated the required sleep after each step to match real time target engine speed
             updateDuration = o_timer.endpoint();
-            requirdPeriod = ((1/(360*(engineSpeed*60/(2*pi))/60))*1000000)-updateDuration;
+            requirdPeriod = ((1/(360*(*engineSpeed*60/(2*pi))/60))*1000000)-updateDuration;
 
             sleep_for(microseconds((int)requirdPeriod));
+
             //std::cout << (cylList[0]->position) <<","<< (cylList[0]->volume)<<"," << (cylList[0]->pressure) << std::endl;
-            //std::cout << k << std::endl;
+            //std::cout << SpeedReg->getEngineSpeed(timestep) << std::endl;
 
             //Need a sleep step here. 
         }
 
+    }
+    float getSpeed(){
+        //std::cout<<*engineSpeed<<std::endl;
+        return (*engineSpeed)*60/(2*pi);
     }
 
 
 };
 
 void displayParameters(engine* target){
+    
     while(1){
 
-        std::cout << target->Throttle->MAP << ","<<target->crankshaft->position << std::endl;
+        std::cout <<target->Throttle->throttleAngle<<"," <<target->Throttle->MAP << ","<<target->getSpeed() << std::endl;
         sleep_for(seconds(1));
     }
 };
@@ -311,6 +369,7 @@ int main() {
     Timer s_timer;
     engine R18Z4(4);
     std::thread thread_object(&engine::run, R18Z4);
+    //sleep_for(seconds(40));
     displayParameters(&R18Z4);
     thread_object.join();
     duration = s_timer.endpoint();

@@ -15,6 +15,12 @@ cmath
 -
 thread
 -
+vector
+-
+fstream
+-
+string
+-
 includes/components.h
 /home/cameron/Documents/cppTutorials/R18Z4Sim/includes/components.h
 
