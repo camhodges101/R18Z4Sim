@@ -62,7 +62,17 @@ class speedController {
     float engineSpeed = 0;
 };
 
+class camshaft{
+    public:
+        float position;
 
+        camshaft(){
+            position =0; 
+        }
+        void update(float* crankAngle){
+            position = (*crankAngle)*0.5;
+        }
+};
 class throttle {
     /*
     Class definition for throttle and intake model
@@ -238,6 +248,7 @@ class engine {
 public:
     crank* crankshaft = new crank();
     throttle* Throttle = new throttle();
+    camshaft* Camshaft = new camshaft;
     float engineSpeed = (2000 * 2 * pi) / 60;
     
     int i;
@@ -263,6 +274,7 @@ public:
         for (k = 0; k < (720 * 10); k++) {
             o_timer.startpoint();
             crankshaft->update(&engineSpeed);
+            Camshaft->update(&(crankshaft->position));
             for (i = 0; i < numCyl; i++) {
                 cylList[i]->intakePressure = Throttle->MAP;
                 cylList[i]->update(&(crankshaft->position));
