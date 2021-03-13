@@ -122,10 +122,6 @@ public:
 };
 
 
-
-
-
-
 class piston
 /*
 This class defines a single piston, this is replicated in the engine class for each piston, the constructor takes the pistons offset from TDC of piston 1. The constructor sets the intake pressure to 1ATM which is then updated to manifold pressure by the throttle class. 
