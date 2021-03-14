@@ -9,9 +9,28 @@
 #include "ipc.h"
 using namespace std;
 
+
+
+
+interfacemsg::interfacemsg(float EngSpd_input, int throttlePercentage_input, float MAP_input, float MAF_Input, float IntakeAirTemp_input, float AFRatio_input, float waterTemp_input){
+        EngSPD = EngSpd_input;
+        throttlePercentage = throttlePercentage_input;
+        MAP = MAP_input;
+        MAF = MAF_Input;
+        IntakeAirTemp = IntakeAirTemp_input;
+        AFRatio = AFRatio_input;
+        waterTemp = waterTemp_input;
+}
+
+
+
+
+
+
+
 interfaceConnection::interfaceConnection(){}
 interfaceConnection::~interfaceConnection(){
-    close(clientSocket);
+    close(*clientSocket);
 }
 int interfaceConnection::connectIPC(){
     int i;
@@ -43,13 +62,16 @@ int interfaceConnection::connectIPC(){
     char host[NI_MAXHOST];
     char svc[NI_MAXSERV];
     
-    int clientSocket = accept(network_socket, NULL, NULL);
-    return clientSocket;
+    *clientSocket = accept(network_socket, NULL, NULL);
+    
+    return *clientSocket;
 }
-int interfaceConnection::senddata(char* msg){
-    int sendstate = send(this->clientSocket, msg, 25, 0);
+int interfaceConnection::senddata(interfacemsg* msg){
+    
+    int sendstate = send(*clientSocket, msg, 28, 0);
     if (sendstate == -1) {
         cerr << "Send Failed"<<endl;
+        cout<<"Client Socket"<<*clientSocket<<endl;
     }
     return sendstate;
 

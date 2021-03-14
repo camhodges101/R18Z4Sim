@@ -356,12 +356,13 @@ public:
 
 };
 
-void displayParameters(engine* target){
-    char buf[25];
-    while(1){
-        buf = &(target->Throttle->throttleAngle);
-        std::cout <<target->Throttle->throttleAngle<<"," <<target->Throttle->MAP << ","<<*(target->engineSpeed)*60/2/pi << std::endl;
 
+
+void displayParameters(engine* target,interfaceConnection* socketConnection){
+    interfacemsg msg(9600.0,0,0.0,0.0,0.0,0.0,0.0);
+    while(1){
+        std::cout<<sizeof(msg)<<std::endl;
+        socketConnection->senddata(&msg);
         sleep_for(seconds(1));
     }
 };
@@ -375,7 +376,7 @@ int main() {
     o_interface.connectIPC();//This method call creates the TCP connection to the interface, this is block by design so the sim doesn't start running until the GUI is connected.
     std::thread thread_object(&engine::run, R18Z4);
 
-    displayParameters(&R18Z4);
+    displayParameters(&R18Z4, &o_interface);
     thread_object.join();
     duration = s_timer.endpoint();
     std::cout << duration/(1000000) << std::endl;
