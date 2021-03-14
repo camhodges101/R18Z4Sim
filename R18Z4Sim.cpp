@@ -312,9 +312,9 @@ public:
             cylList[i] = new piston(offsetAngles[i]);
         }
     }
-    ~engine(){
-        delete engineSpeed;
-    }
+    //~engine(){
+    //    delete engineSpeed;
+    //}
     void run() {
         Timer o_timer;
         Timer g_timer;
