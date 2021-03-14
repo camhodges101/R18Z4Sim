@@ -6,23 +6,25 @@
 
 #IncludeRegexTransform: 
 
-/home/cameron/Documents/cppTutorials/R18Z4Sim/R18Z4Sim.cpp
-chrono
--
+/home/cameron/Documents/cppTutorials/R18Z4Sim/includes/ipc.cpp
 iostream
 -
-cmath
+sys/types.h
 -
-thread
+unistd.h
 -
-vector
+sys/socket.h
 -
-fstream
+netdb.h
+-
+arpa/inet.h
+-
+string.h
 -
 string
 -
-includes/components.h
-/home/cameron/Documents/cppTutorials/R18Z4Sim/includes/components.h
+ipc.h
+/home/cameron/Documents/cppTutorials/R18Z4Sim/includes/ipc.h
 
-/home/cameron/Documents/cppTutorials/R18Z4Sim/includes/components.h
+/home/cameron/Documents/cppTutorials/R18Z4Sim/includes/ipc.h
 

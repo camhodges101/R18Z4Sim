@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include "includes/components.h"
+#include "includes/ipc.h"
 using namespace std::this_thread; // sleep_for, sleep_until
 using namespace std::chrono;
 /*
@@ -356,10 +357,11 @@ public:
 };
 
 void displayParameters(engine* target){
-    
+    char buf[25];
     while(1){
-
+        buf = &(target->Throttle->throttleAngle);
         std::cout <<target->Throttle->throttleAngle<<"," <<target->Throttle->MAP << ","<<*(target->engineSpeed)*60/2/pi << std::endl;
+
         sleep_for(seconds(1));
     }
 };
@@ -367,11 +369,12 @@ void displayParameters(engine* target){
 
 int main() {
     float duration;
-    //engine* R18Z4 = engine(4);
+    interfaceConnection o_interface;
     Timer s_timer;
     engine R18Z4(4);
+    o_interface.connectIPC();//This method call creates the TCP connection to the interface, this is block by design so the sim doesn't start running until the GUI is connected.
     std::thread thread_object(&engine::run, R18Z4);
-    //sleep_for(seconds(40));
+
     displayParameters(&R18Z4);
     thread_object.join();
     duration = s_timer.endpoint();

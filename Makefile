@@ -177,6 +177,33 @@ includes/components.cpp.s:
 	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/includes/components.cpp.s
 .PHONY : includes/components.cpp.s
 
+includes/ipc.o: includes/ipc.cpp.o
+
+.PHONY : includes/ipc.o
+
+# target to build an object file
+includes/ipc.cpp.o:
+	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/includes/ipc.cpp.o
+.PHONY : includes/ipc.cpp.o
+
+includes/ipc.i: includes/ipc.cpp.i
+
+.PHONY : includes/ipc.i
+
+# target to preprocess a source file
+includes/ipc.cpp.i:
+	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/includes/ipc.cpp.i
+.PHONY : includes/ipc.cpp.i
+
+includes/ipc.s: includes/ipc.cpp.s
+
+.PHONY : includes/ipc.s
+
+# target to generate assembly for a file
+includes/ipc.cpp.s:
+	$(MAKE) -f CMakeFiles/R18Z4Sim.dir/build.make CMakeFiles/R18Z4Sim.dir/includes/ipc.cpp.s
+.PHONY : includes/ipc.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +219,9 @@ help:
 	@echo "... includes/components.o"
 	@echo "... includes/components.i"
 	@echo "... includes/components.s"
+	@echo "... includes/ipc.o"
+	@echo "... includes/ipc.i"
+	@echo "... includes/ipc.s"
 .PHONY : help
 
 
