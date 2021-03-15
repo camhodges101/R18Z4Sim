@@ -6,7 +6,7 @@ If successful it will provide accurate enough sensor values that firstly, a fact
 
 The overall system model is as follows;
 
-![](images/modelconcept.png)
+![](images/modelconcept.PNG)
 
  
  
