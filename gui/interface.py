@@ -19,19 +19,19 @@ class interface():
             data, addr = sock.recvfrom(4096)
 
             data = struct.unpack("fffffff",data)
-            engspd, ThrottlePosition, MAF, MAP, AirTemp, AFRatio, WaterTemp = data
+            engspd, ThrottlePosition, MAP, MAF, AirTemp, AFRatio, WaterTemp = data
             print(engspd)
             self.parameter1Data.delete(0,"end")
             self.parameter1Data.insert(0, round(engspd*60/2/pi,0))
             
             self.parameter2Data.delete(0,"end")
-            self.parameter2Data.insert(0, round(ThrottlePosition,2))
+            self.parameter2Data.insert(0, ThrottlePosition)
             
             self.parameter3Data.delete(0,"end")
-            self.parameter3Data.insert(0, MAF)
+            self.parameter3Data.insert(0, round(MAP,2))
             
             self.parameter4Data.delete(0,"end")
-            self.parameter4Data.insert(0, MAP)
+            self.parameter4Data.insert(0, round(MAF*100,2))
             
             self.parameter5Data.delete(0,"end")
             self.parameter5Data.insert(0, AirTemp)
