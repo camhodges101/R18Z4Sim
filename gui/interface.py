@@ -10,7 +10,7 @@ class interface():
         import struct
 
     
-        UDP_IP = "127.0.0.1"
+        UDP_IP = "192.168.0.108"
         UDP_PORT = 54000
 
         sock = socket.socket(socket.AF_INET, # Internet
