@@ -119,7 +119,7 @@ class throttle {
     Class definition for throttle and intake model
     */
 public:
-    int throttleAngle;
+    int* throttleAngle = new int;
     float MAP;
     float MAF;
     float velocity;
@@ -137,10 +137,10 @@ public:
 
     throttle() {
         VE = 0.85;
-        throttleAngle = 40;
+        *throttleAngle = 40;
         dia = 60e-3;
         velocity = 0;
-        flowarea = (pi * pow((dia * 0.5), 2)) - (dia * 0.5 * (0.5 * dia * cos(throttleAngle * 2 * pi / 360) * pi));
+        flowarea = (pi * pow((dia * 0.5), 2)) - (dia * 0.5 * (0.5 * dia * cos(*throttleAngle * 2 * pi / 360) * pi));
         MAP = 101e3;
         MAF = 0;
         TotalAirDemand = 0;
@@ -164,7 +164,7 @@ public:
         --Outputs None
         */
         TotalAirDemand = 4 * 0.00045 * VE * (*EngineSpeed / (2 * pi)) * 0.5;
-        flowarea = (pi * pow((dia * 0.5), 2)) - (dia * 0.5 * (0.5 * dia * cos(throttleAngle * 2 * pi / 360) * pi));
+        flowarea = (pi * pow((dia * 0.5), 2)) - (dia * 0.5 * (0.5 * dia * cos(*throttleAngle * 2 * pi / 360) * pi));
         velocity = TotalAirDemand / flowarea;
         MAP = std::max((ATMPress + 0.5 * ATMrho * (0 - pow(velocity, 2))), 0.0);
         MAF = ATMrho * flowarea * velocity;
@@ -329,7 +329,7 @@ public:
             //This updates the sims internal values for engine speed and throttle position based on a predetermined time based sequence stores in a csv. 
             timestep = (int)((g_timer.endpoint())/1000000)+1;
             *engineSpeed = ((SpeedReg->getEngineSpeed(timestep))*2*pi/60);
-            Throttle->throttleAngle = 20+70*(SpeedReg->getThrottlePos(timestep));
+            *(Throttle->throttleAngle) = 20+70*(SpeedReg->getThrottlePos(timestep));
             
             
             //Calculated the required sleep after each step to match real time target engine speed
@@ -355,7 +355,7 @@ public:
 void displayParameters(engine* target,interfaceConnection* socketConnection){
     
     while(1){
-        interfacemsg msg(*(target->engineSpeed),(target->Throttle->throttleAngle),(target->Throttle->MAP),(target->Throttle->MAF),0.0,0.0,0.0);
+        interfacemsg msg(*(target->engineSpeed),*(target->Throttle->throttleAngle),(target->Throttle->MAP),(target->Throttle->MAF),0.0,0.0,0.0);
         std::cout<<sizeof(msg)<<std::endl;
         socketConnection->senddata(&msg);
         sleep_for(seconds(1));
