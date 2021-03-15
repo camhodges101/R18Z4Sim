@@ -25,7 +25,7 @@ class interface():
             self.parameter1Data.insert(0, round(engspd*60/2/pi,0))
             
             self.parameter2Data.delete(0,"end")
-            self.parameter2Data.insert(0, ThrottlePosition)
+            self.parameter2Data.insert(0, round(ThrottlePosition,2))
             
             self.parameter3Data.delete(0,"end")
             self.parameter3Data.insert(0, MAF)
