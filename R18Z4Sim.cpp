@@ -17,7 +17,7 @@ using namespace std::chrono;
 Stuff to add
 Speed control, sleep after crank update
 External throttle control
-Dynamic speed control (based on throttle position via transfer function (some lag))
+Improeve Dynamic speed control (based on throttle position via transfer function (some lag))
 TCP connection to GUI
 hardware interface functions
 sensor voltage transfer functions. 
