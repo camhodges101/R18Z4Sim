@@ -9,7 +9,7 @@ class interface():
         from time import sleep
         import struct
 
-            return data
+    
         UDP_IP = "127.0.0.1"
         UDP_PORT = 54000
 
