@@ -329,7 +329,7 @@ public:
             //This updates the sims internal values for engine speed and throttle position based on a predetermined time based sequence stores in a csv. 
             timestep = (int)((g_timer.endpoint())/1000000)+1;
             *engineSpeed = ((SpeedReg->getEngineSpeed(timestep))*2*pi/60);
-            Throttle->throttleAngle = 40+50*(SpeedReg->getThrottlePos(timestep));
+            Throttle->throttleAngle = 20+70*(SpeedReg->getThrottlePos(timestep));
             
             
             //Calculated the required sleep after each step to match real time target engine speed
