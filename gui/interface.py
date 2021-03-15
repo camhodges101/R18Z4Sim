@@ -5,7 +5,24 @@ import socket
 
 class interface():
     def connect(self):
-        pass
+        import socket
+        from time import sleep
+        import struct
+
+            return data
+        UDP_IP = "127.0.0.1"
+        UDP_PORT = 54000
+
+        sock = socket.socket(socket.AF_INET, # Internet
+                                socket.SOCK_STREAM) # UDP
+        sock.connect((UDP_IP, UDP_PORT))
+        while True:
+            
+            data, addr = sock.recvfrom(4096)
+
+            data = struct.unpack("fffffff",data)
+            print(data)
+            sleep(0.5)
     def __init__(self):
         self.form=tk.Tk()
         self.form.geometry("650x500")
