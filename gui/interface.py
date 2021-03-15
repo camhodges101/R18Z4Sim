@@ -2,7 +2,7 @@ import tkinter as tk
 import socket
 import struct
 from time import sleep
-
+from math import pi
 
 class interface():
     def connect(self):
@@ -22,7 +22,7 @@ class interface():
             engspd, ThrottlePosition, MAF, MAP, AirTemp, AFRatio, WaterTemp = data
             print(engspd)
             self.parameter1Data.delete(0,"end")
-            self.parameter1Data.insert(0, str(engspd))
+            self.parameter1Data.insert(0, round(engspd*60/2/pi,0))
             
             self.parameter2Data.delete(0,"end")
             self.parameter2Data.insert(0, ThrottlePosition)
