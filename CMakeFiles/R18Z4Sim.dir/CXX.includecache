@@ -6,7 +6,41 @@
 
 #IncludeRegexTransform: 
 
-/home/cameron/Documents/cppTutorials/R18Z4Sim/includes/ipc.cpp
+/home/pi/cppTutorials/R18Z4Sim/R18Z4Sim.cpp
+chrono
+-
+iostream
+-
+cmath
+-
+thread
+-
+vector
+-
+fstream
+-
+string
+-
+includes/components.h
+/home/pi/cppTutorials/R18Z4Sim/includes/components.h
+includes/ipc.h
+/home/pi/cppTutorials/R18Z4Sim/includes/ipc.h
+
+/home/pi/cppTutorials/R18Z4Sim/includes/components.cpp
+chrono
+-
+iostream
+-
+cmath
+-
+thread
+-
+components.h
+/home/pi/cppTutorials/R18Z4Sim/includes/components.h
+
+/home/pi/cppTutorials/R18Z4Sim/includes/components.h
+
+/home/pi/cppTutorials/R18Z4Sim/includes/ipc.cpp
 iostream
 -
 sys/types.h
@@ -24,7 +58,7 @@ string.h
 string
 -
 ipc.h
-/home/cameron/Documents/cppTutorials/R18Z4Sim/includes/ipc.h
+/home/pi/cppTutorials/R18Z4Sim/includes/ipc.h
 
-/home/cameron/Documents/cppTutorials/R18Z4Sim/includes/ipc.h
+/home/pi/cppTutorials/R18Z4Sim/includes/ipc.h
 
