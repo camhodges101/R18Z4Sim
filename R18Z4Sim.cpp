@@ -261,6 +261,7 @@ public:
             o_timer.startpoint();
             crankshaft->update(engineSpeed);
             Camshaft->update(&(crankshaft->position));
+            // For loop to update the position/parameters of each piston, based on the new crank position and MAP value
             for (i = 0; i < numCyl; i++) {
                 cylList[i]->intakePressure = Throttle->MAP;
                 cylList[i]->update(&(crankshaft->position));
