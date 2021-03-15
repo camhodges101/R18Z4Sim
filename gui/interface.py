@@ -1,15 +1,13 @@
 import tkinter as tk
 import socket
-
+import struct
+from time import sleep
 
 
 class interface():
     def connect(self):
-        import socket
-        from time import sleep
-        import struct
-
-    
+        
+        print("Running Connect")
         UDP_IP = "192.168.0.108"
         UDP_PORT = 54000
 
@@ -21,7 +19,30 @@ class interface():
             data, addr = sock.recvfrom(4096)
 
             data = struct.unpack("fffffff",data)
-            print(data)
+            engspd, ThrottlePosition, MAF, MAP, AirTemp, AFRatio, WaterTemp = data
+            print(engspd)
+            self.parameter1Data.delete(0,"end")
+            self.parameter1Data.insert(0, str(engspd))
+            
+            self.parameter2Data.delete(0,"end")
+            self.parameter2Data.insert(0, ThrottlePosition)
+            
+            self.parameter3Data.delete(0,"end")
+            self.parameter3Data.insert(0, MAF)
+            
+            self.parameter4Data.delete(0,"end")
+            self.parameter4Data.insert(0, MAP)
+            
+            self.parameter5Data.delete(0,"end")
+            self.parameter5Data.insert(0, AirTemp)
+            
+            self.parameter6Data.delete(0,"end")
+            self.parameter6Data.insert(0, AFRatio)
+            
+            self.parameter7Data.delete(0,"end")
+            self.parameter7Data.insert(0, WaterTemp)
+            self.form.update()
+
             sleep(0.5)
     def __init__(self):
         self.form=tk.Tk()
@@ -88,7 +109,7 @@ class interface():
 
         self.controls=tk.LabelFrame(self.form,text="")
         self.controls.grid(row=1,columnspan=7,sticky="W",padx=5,pady=5)
-        self.runBtn = tk.Button(self.controls, text="Connect...",command =self.connect()) 
+        self.runBtn = tk.Button(self.controls, text="Connect...",command =self.connect)
         self.runBtn.grid()
 
         
