@@ -353,8 +353,9 @@ public:
 
 
 void displayParameters(engine* target,interfaceConnection* socketConnection){
-    interfacemsg msg(*(target->engineSpeed),0,0.0,0.0,0.0,0.0,0.0);
+    
     while(1){
+        interfacemsg msg(*(target->engineSpeed),0,0.0,0.0,0.0,0.0,0.0);
         std::cout<<sizeof(msg)<<std::endl;
         socketConnection->senddata(&msg);
         sleep_for(seconds(1));
