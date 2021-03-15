@@ -283,9 +283,6 @@ public:
 };
 
 
-
-
-
 class engine {
 public:
     crank* crankshaft = new crank();
@@ -341,10 +338,7 @@ public:
 
             sleep_for(microseconds((int)requirdPeriod));
 
-            //std::cout << (cylList[0]->position) <<","<< (cylList[0]->volume)<<"," << (cylList[0]->pressure) << std::endl;
-            //std::cout << SpeedReg->getEngineSpeed(timestep) << std::endl;
 
-            //Need a sleep step here. 
         }
 
     }
