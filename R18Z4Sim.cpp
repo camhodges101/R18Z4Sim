@@ -112,75 +112,7 @@ class speedController{
         }
 };
 
-class camshaft{
-    public:
-        float position;
 
-        camshaft(){
-            position =0; 
-        }
-        void update(float* crankAngle){
-            position = (*crankAngle)*0.5;
-        }
-};
-class throttle {
-    /*
-    Class definition for throttle and intake model
-    */
-public:
-    int* throttleAngle = new int;
-    float MAP;
-    float MAF;
-    float velocity;
-
-private:
-    float dia;
-    
-    float flowarea;
-    float TotalAirDemand;
-    float VE;
-    float ATMPress = 101e3;
-    float ATMrho = 1.225;
-
-public:
-
-    throttle() {
-        VE = 0.85;
-        *throttleAngle = 40;
-        dia = 60e-3;
-        velocity = 0;
-        flowarea = (pi * pow((dia * 0.5), 2)) - (dia * 0.5 * (0.5 * dia * cos(*throttleAngle * 2 * pi / 360) * pi));
-        MAP = 101e3;
-        MAF = 0;
-        TotalAirDemand = 0;
-
-
-    }
-
-    void update(float* EngineSpeed) {
-        /*
-        This method takes the current engine speed and calculates a total air demand for the 4 cylinders
-        Need to update this if the code is to generalise for engines other than 4 cyl models
-        Cylinder volume is hard coded, need to add head volume to this
-        MAP is calulated with a belnoili model of flow through a reduced cross section, assumed air density and pressure at 15deg C and sea level
-        MAF is assumed to be based on float at the narrowest part of the throttle body.
-        Assumes 60mm throttle body
-
-        --Inputs Float Pointer to Engine speed
-
-        --Actions Updates public MAP and MAF values as floats.
-
-        --Outputs None
-        */
-        TotalAirDemand = 4 * 0.00045 * VE * (*EngineSpeed / (2 * pi)) * 0.5;
-        flowarea = (pi * pow((dia * 0.5), 2)) - (dia * 0.5 * (0.5 * dia * cos(*throttleAngle * 2 * pi / 360) * pi));
-        velocity = TotalAirDemand / flowarea;
-        MAP = std::max((ATMPress + 0.5 * ATMrho * (0 - pow(velocity, 2))), 0.0);
-        MAF = ATMrho * flowarea * velocity;
-    }
-
-
-};
 
 
 class piston
