@@ -130,7 +130,7 @@ public:
     float angleOffset;
     int cyclestate;
     const float topPosition = (0.5f * stroke) + rodlength;
-    const float bottomPosition = (0.5f * stroke) - rodlength;
+    const float bottomPosition = -(0.5f * stroke) + rodlength;
     float ATMpress;
     float intakePressure;
     float volume;
