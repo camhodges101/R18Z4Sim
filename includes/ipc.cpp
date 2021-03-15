@@ -30,8 +30,8 @@ interfacemsg::interfacemsg(float EngSpd_input, int throttlePercentage_input, flo
 
 interfaceConnection::interfaceConnection(){}
 interfaceConnection::~interfaceConnection(){
-    close(*clientSocket);
-    delete *clientSocket;
+    close(clientSocket);
+    //delete clientSocket;
 }
 int interfaceConnection::connectIPC(){
     int i;
@@ -63,16 +63,16 @@ int interfaceConnection::connectIPC(){
     char host[NI_MAXHOST];
     char svc[NI_MAXSERV];
     
-    *clientSocket = accept(network_socket, NULL, NULL);
+    clientSocket = accept(network_socket, NULL, NULL);
     
-    return *clientSocket;
+    return clientSocket;
 }
 int interfaceConnection::senddata(interfacemsg* msg){
     
-    int sendstate = send(*clientSocket, msg, 28, 0);
+    int sendstate = send(clientSocket, msg, 28, 0);
     if (sendstate == -1) {
         cerr << "Send Failed"<<endl;
-        cout<<"Client Socket"<<*clientSocket<<endl;
+        cout<<"Client Socket"<<clientSocket<<endl;
     }
     return sendstate;
 

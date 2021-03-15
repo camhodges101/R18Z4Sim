@@ -17,7 +17,8 @@ struct interfacemsg{
 
 class interfaceConnection{
     public:
-        int* clientSocket = new int;
+        //int* clientSocket = new int;
+        int clientSocket;
         int network_socket;
         int i;
         interfaceConnection();
