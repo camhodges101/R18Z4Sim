@@ -18,7 +18,7 @@ class interface():
             
             data, addr = sock.recvfrom(4096)
 
-            data = struct.unpack("fffffff",data)
+            data = struct.unpack("fifffff",data)
             engspd, ThrottlePosition, MAP, MAF, AirTemp, AFRatio, WaterTemp = data
             print(engspd)
             self.parameter1Data.delete(0,"end")
@@ -47,7 +47,7 @@ class interface():
     def __init__(self):
         self.form=tk.Tk()
         self.form.geometry("650x500")
-        self.form.wm_title("Cams Engine Sim")
+        self.form.wm_title("Engine Sim Interface")
         
         self.parameters=tk.LabelFrame(self.form,text="Simulated Engine Parameters")
         self.parameters.grid(row=0,columnspan=7,sticky="W",padx=5,pady=5)
