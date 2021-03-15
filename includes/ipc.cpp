@@ -31,6 +31,7 @@ interfacemsg::interfacemsg(float EngSpd_input, int throttlePercentage_input, flo
 interfaceConnection::interfaceConnection(){}
 interfaceConnection::~interfaceConnection(){
     close(*clientSocket);
+    delete *clientSocket;
 }
 int interfaceConnection::connectIPC(){
     int i;
