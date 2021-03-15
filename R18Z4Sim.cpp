@@ -355,7 +355,7 @@ public:
 void displayParameters(engine* target,interfaceConnection* socketConnection){
     
     while(1){
-        interfacemsg msg(*(target->engineSpeed),0,0.0,0.0,0.0,0.0,0.0);
+        interfacemsg msg(*(target->engineSpeed),(target->Throttle->throttleAngle),(target->Throttle->MAP),(target->Throttle->MAF),0.0,0.0,0.0);
         std::cout<<sizeof(msg)<<std::endl;
         socketConnection->senddata(&msg);
         sleep_for(seconds(1));
