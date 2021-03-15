@@ -11,6 +11,7 @@
 #include <string>
 #include "includes/components.h"
 #include "includes/ipc.h"
+
 using namespace std::this_thread; // sleep_for, sleep_until
 using namespace std::chrono;
 /*
@@ -38,6 +39,14 @@ The engine is also created as a class, it has a method run which updates all sub
 */
 
 struct Timer{
+    /*
+    Simple timer struct for timing the simulation. startpoint and endpoint methods for starting and stopping the timer. allows for point to point timing or ongoing incrementing timer. 
+    --Inputs None
+
+    -- Actions Starts and runs timer. 
+
+    --  Outputs float time elapsed since start point in microseconds. 
+    */
     public:
             std::chrono::time_point<std::chrono::system_clock> start, end;
             std::chrono::duration<float>duration;

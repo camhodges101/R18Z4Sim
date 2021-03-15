@@ -11,7 +11,15 @@ using namespace std;
 
 
 
+/*
+Creates a struct with key values to send to GUI
+--Inputs Float/Int values for key model parameters
 
+-- Actions Intialises struct with message data
+
+--  Outputs None
+
+*/
 interfacemsg::interfacemsg(float EngSpd_input, int throttlePercentage_input, float MAP_input, float MAF_Input, float IntakeAirTemp_input, float AFRatio_input, float waterTemp_input){
         EngSPD = EngSpd_input;
         throttlePercentage = throttlePercentage_input;
@@ -24,15 +32,19 @@ interfacemsg::interfacemsg(float EngSpd_input, int throttlePercentage_input, flo
 
 
 
-
-
-
-
 interfaceConnection::interfaceConnection(){}
 interfaceConnection::~interfaceConnection(){
     close(clientSocket);
-    //delete clientSocket;
+   
 }
+/*
+Creates a socket to allow for an incoming TCP connection, hard coded port to 54000. 
+--Inputs None
+
+-- Actions Creates network/client sockets, prints error messages to console.
+
+--  Outputs Int identifier for client socket
+*/
 int interfaceConnection::connectIPC(){
     int i;
     int network_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -67,6 +79,14 @@ int interfaceConnection::connectIPC(){
     
     return clientSocket;
 }
+/*
+Sends message using TCP socket onces Interface connects. 
+--Inputs struct pointer to message structure. 
+
+-- Actions sends message on TCP socket, prints error to console if fault. 
+
+--  Outputs Int identifier for send state
+*/
 int interfaceConnection::senddata(interfacemsg* msg){
     
     int sendstate = send(clientSocket, msg, 28, 0);
