@@ -12,7 +12,7 @@ The overall system model is as follows;
 
  The model is controlled through a user interface created with python/tinkter running on a ubuntu laptop, the IPC is done with TCP/IP between the laptop and raspberry pi. 
 
-![](images/gui.PNG)
+![](images/gui.png)
 
 
 # PCB Design
