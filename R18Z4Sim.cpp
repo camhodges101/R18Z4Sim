@@ -70,6 +70,15 @@ const float pi = 3.1415926535;
 
 
 class speedController{
+    /*
+    Class to allow for a pre determined throttle track to be imported, this is a 12min track of different throttle positions. 
+    --Inputs None
+
+    -- Actions Creates STL Vector for time and throttle position, this then gets queried by time later, the timer struct gets used to return the elapsed time since the model started in seconds, this is then used to return the correct throttle position for that time. 
+
+    --  Outputs Throttle position and matching engine speed at a given time, these are returned as floats.
+    */
+
 	public:
 		int trackLength = 0;
         float targetSpeed;
@@ -80,7 +89,7 @@ class speedController{
 		std::vector<float>throttlePercentage;
 		
 		speedController(){
-			myFile.open("data/throttleProfile.csv");
+			myFile.open("data/throttleProfile.csv");//the dir of the source file is hard coded, this will be fixed in a future release. 
 			if (myFile.is_open()){
 				getline(myFile,line,'\n');
 				
@@ -105,7 +114,7 @@ class speedController{
         }
 
         float getEngineSpeed(int time){
-            
+            //This is a very simplistic transfer fuction from throttle position to engine speed, with some more research this can be improved. 
             targetSpeed =(900.0 + (5000*throttlePercentage[time])); 
             
             return targetSpeed;
@@ -201,11 +210,11 @@ public:
     void update(float* crankAngle) {
         /*
         This method takes a pointer crankAngle and then updates the pistons position based on this, this also includes the offset of each piston. Includes calling the otto cycle function to update cylinder pressure, temperatures and volumes
-        --Inputs
+        --Inputs Float pointer to current Crank Angle.
 
-        --Actions
+        --Actions - Calculated the position of the piston and then uses the otto model to update the assocated temperature, pressure, air mass and cylinder volume. 
 
-        --Outputs
+        --Outputs - None
         */
         float x1, y1, x2, y2;
         x1 = 0.5f * stroke * sin(*crankAngle - angleOffset);
