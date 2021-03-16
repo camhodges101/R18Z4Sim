@@ -15,11 +15,8 @@
 using namespace std::this_thread; // sleep_for, sleep_until
 using namespace std::chrono;
 /*
-Stuff to add
-Speed control, sleep after crank update
-External throttle control
-Improeve Dynamic speed control (based on throttle position via transfer function (some lag))
-TCP connection to GUI
+Todo List
+Improve Dynamic speed control (based on throttle position via transfer function (some lag))
 hardware interface functions
 sensor voltage transfer functions. 
 */
