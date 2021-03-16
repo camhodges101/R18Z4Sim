@@ -4,7 +4,7 @@
 #include <thread>
 #include "components.h"
 
-
+const float pi = 3.1415926535;
 int cycleState(float theta) {
     /*
     Function to convert crank angle (theta) to 4-stroke cycle stage
@@ -50,7 +50,7 @@ float densityModel(float* temp, float* pressure) {
     return 0.02897 * ((*pressure * 1.0) / (8.31446261815324 * (273.0 + *temp)));
 }
 
-const float pi = 3.1415926535;
+
 
 crank::crank(){
     speed =0;
