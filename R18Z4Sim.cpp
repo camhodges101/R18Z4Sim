@@ -178,7 +178,7 @@ public:
             *(Throttle->throttleAngle) = 20+70*(SpeedReg->getThrottlePos(timestep));
             
             
-            //Calculated the required sleep after each step to match real time target engine speed
+            //Calculated the required sleep after each step to match real time target engine speed then sleep thread for that time
             updateDuration = o_timer.endpoint();
             requirdPeriod = ((1/(360*(*engineSpeed*60/(2*pi))/60))*1000000)-updateDuration;
 
