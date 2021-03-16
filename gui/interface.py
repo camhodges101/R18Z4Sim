@@ -109,7 +109,7 @@ class interface():
 
         self.controls=tk.LabelFrame(self.form,text="")
         self.controls.grid(row=1,columnspan=7,sticky="W",padx=5,pady=5)
-        self.runBtn = tk.Button(self.controls, text="Connect...",command =self.connect)
+        self.runBtn = tk.Button(self.controls, text="Run Model",command =self.connect)
         self.runBtn.grid()
 
         
