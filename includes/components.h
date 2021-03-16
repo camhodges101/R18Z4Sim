@@ -83,11 +83,11 @@ public:
     const float R = 8.31446261815324;
     float n;
 
-    piston(float TDC_Angle)
+    piston(float TDC_Angle);
 
-    void ottoModel()
+    void ottoModel();
 
-    void update(float* crankAngle)
+    void update(float* crankAngle);
 };
 
 
