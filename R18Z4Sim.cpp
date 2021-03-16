@@ -135,8 +135,8 @@ public:
     int i;
     int numCyl;
 private:
-    float offsetAngles[4] = { 0.0f, 2.0f * pi, pi, 3.0f * pi };
-    piston* cylList[4];
+    float offsetAngles[4] = { 0.0f, 2.0f * pi, pi, 3.0f * pi }; //This is the offsets of each piston from cyl 1
+    piston* cylList[4]; // array to store pointers to piston objects
     int k = 0;
     float updateDuration = 0;
     float requirdPeriod = 0;
@@ -153,6 +153,10 @@ public:
     }
     ~engine(){
         delete engineSpeed;
+        delete crankshaft;
+        delete Throttle;
+        delete Camshaft;
+        delete SpeedReg;
     }
     void run() {
         Timer o_timer;
