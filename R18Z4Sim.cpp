@@ -126,6 +126,9 @@ class speedController{
 
 class engine {
 public:
+    /*
+    I keep getting memory access violations if I stack allocate these objects not sure why, so here they are on the heap. 
+    */
     crank* crankshaft = new crank();
     throttle* Throttle = new throttle();
     camshaft* Camshaft = new camshaft;
