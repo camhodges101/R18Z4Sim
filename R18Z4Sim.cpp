@@ -301,7 +301,15 @@ public:
 
 
 void displayParameters(engine* target,interfaceConnection* socketConnection){
+        /*
+    Sends TCP messages to update the GUI with sensor values. 
     
+    --Inputs Pointer to engine model and interface connection. 
+
+    -- Actions Runs a 1hz loop that creates a message structure with up today model parameters and then sends via TCP/IP to the laptop running the interface GUI 
+
+    --  Outputs  
+    */
     while(1){
         
         interfacemsg msg(*(target->engineSpeed),*(target->Throttle->throttleAngle),(target->Throttle->MAP),(target->Throttle->MAF),0.0,0.0,0.0);
