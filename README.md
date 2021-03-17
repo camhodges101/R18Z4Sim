@@ -19,4 +19,6 @@ R18Z4Sim.cpp is the main cpp file.
 
 # PCB Design
 
-Design for the DAC/Power PCB to interface to the engine ECM is yet to be done. 
+Initial PCB design for testing, needs further development. Also needs to considering returning output signals from the engine ECM.
+![](images/InitalPCBLayout.png)
+
