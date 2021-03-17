@@ -164,7 +164,7 @@ public:
     void run() {
         Timer o_timer;
         Timer g_timer;
-        for (k = 0; k < (720 * 1000); k++) {
+        for (k = 0; k < (720 * 1000); k++) { //runs for 2000 revolutions
             o_timer.startpoint();
             crankshaft->update(engineSpeed);
             Camshaft->update(&(crankshaft->position));
