@@ -87,7 +87,7 @@ class speedController{
 		
 		speedController(){
 			myFile.open("data/throttleProfile.csv");//the dir of the source file is hard coded, this will be fixed in a future release. 
-			if (myFile.is_open()){
+			if (myFile.is_open()){// Only proceed if file can be opened
 				getline(myFile,line,'\n');
 				
 				while(!myFile.eof()){
@@ -173,7 +173,7 @@ public:
                 cylList[i]->intakePressure = Throttle->MAP;
                 cylList[i]->update(&(crankshaft->position));
             }
-            Throttle->update(engineSpeed);
+            Throttle->update(engineSpeed);//Update throttle with current engine speed to determine new air demand and MAP/MAF
             
             //This updates the sims internal values for engine speed and throttle position based on a predetermined time based sequence stores in a csv. 
             timestep = (int)((g_timer.endpoint())/1000000)+1;
